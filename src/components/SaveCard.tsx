@@ -16,18 +16,18 @@ import {
   RotateCcw
 } from "lucide-react";
 import { motion } from "motion/react";
-import { Card, CardContent } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { cn } from "../lib/utils";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
   DropdownMenuTrigger 
-} from "./ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { updateDoc, doc } from "firebase/firestore";
-import { db, COLLECTIONS } from "../lib/firebase";
+import { db, COLLECTIONS } from "@/lib/firebase";
 import { toast } from "sonner";
 
 export interface SaveItem {

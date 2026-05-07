@@ -16,10 +16,10 @@ import {
   Clock,
   Youtube
 } from "lucide-react";
-import { useAuth } from "../contexts/AuthContext";
-import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
-import { cn } from "../lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { id: "home", label: "Core", icon: Home },

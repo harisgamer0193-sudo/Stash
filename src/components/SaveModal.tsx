@@ -5,10 +5,10 @@ import {
   DialogHeader, 
   DialogTitle, 
   DialogTrigger 
-} from "./ui/dialog";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Link, 
   Type, 
@@ -19,11 +19,11 @@ import {
   Plus, 
   Youtube
 } from "lucide-react";
-import { geminiService } from "../services/geminiService";
-import { db, COLLECTIONS } from "../lib/firebase";
-import { handleFirestoreError, OperationType } from "../lib/firestoreErrorHandler";
+import { geminiService } from "@/services/geminiService";
+import { db, COLLECTIONS } from "@/lib/firebase";
+import { handleFirestoreError, OperationType } from "@/lib/firestoreErrorHandler";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { motion } from "motion/react";
 

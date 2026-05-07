@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { useAuth } from "../contexts/AuthContext";
-import { db, COLLECTIONS, auth } from "../lib/firebase";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@/contexts/AuthContext";
+import { db, COLLECTIONS, auth } from "@/lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
+import { cn } from "@/lib/utils";
 import { 
   Sparkles, 
   Globe, 
@@ -257,5 +259,3 @@ export function Onboarding({ onComplete }: { onComplete: () => void }) {
   );
 }
 
-import { Separator } from "./ui/separator";
-import { cn } from "../lib/utils";
