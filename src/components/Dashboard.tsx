@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Sidebar } from "@/components/Sidebar";
-import { SaveCard, SaveItem } from "@/components/SaveCard";
-import { SaveModal } from "@/components/SaveModal";
+import { Sidebar } from "@/components/Sidebar.tsx";
+import { SaveCard, SaveItem } from "@/components/SaveCard.tsx";
+import { SaveModal } from "@/components/SaveModal.tsx";
 import { Search, Sparkles, SlidersHorizontal, Loader2, RefreshCw, Clock, BrainCircuit, Layers, Menu, X } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
-import { db, COLLECTIONS } from "@/lib/firebase";
+import { useAuth } from "@/contexts/AuthContext.tsx";
+import { db, COLLECTIONS } from "@/lib/firebase.ts";
 import { collection, query, where, onSnapshot, doc, updateDoc, deleteDoc, orderBy } from "firebase/firestore";
-import { geminiService } from "@/services/geminiService";
-import { cosineSimilarity } from "@/lib/vectorUtils";
-import { handleFirestoreError, OperationType } from "@/lib/firestoreErrorHandler";
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { geminiService } from "@/services/geminiService.ts";
+import { cosineSimilarity } from "@/lib/vectorUtils.ts";
+import { handleFirestoreError, OperationType } from "@/lib/firestoreErrorHandler.ts";
+import { cn } from "@/lib/utils.ts";
+import { Input } from "@/components/ui/input.tsx";
+import { Button } from "@/components/ui/button.tsx";
 import { motion, AnimatePresence } from "motion/react";
 import { toast } from "sonner";
 
-import { QuickView } from "@/components/QuickView";
+import { QuickView } from "@/components/QuickView.tsx";
 
 export function Dashboard() {
   const { user } = useAuth();
