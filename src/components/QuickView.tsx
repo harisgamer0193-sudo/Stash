@@ -19,13 +19,13 @@ import {
   DialogContent, 
   DialogHeader, 
   DialogTitle 
-} from "@/components/ui/dialog.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { Badge } from "@/components/ui/badge.tsx";
-import { SaveItem } from "@/components/SaveCard.tsx";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { SaveItem } from "@/components/SaveCard";
 import { motion, AnimatePresence } from "motion/react";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils.ts";
+import { cn } from "@/lib/utils";
 
 interface QuickViewProps {
   item: SaveItem | null;

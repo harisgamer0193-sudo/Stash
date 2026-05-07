@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
-import { Button } from "@/components/ui/button.tsx";
-import { Input } from "@/components/ui/input.tsx";
-import { Separator } from "@/components/ui/separator.tsx";
-import { useAuth } from "@/contexts/AuthContext.tsx";
-import { db, COLLECTIONS, auth } from "@/lib/firebase.ts";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@/contexts/AuthContext";
+import { db, COLLECTIONS, auth } from "@/lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { cn } from "@/lib/utils.ts";
+import { cn } from "@/lib/utils";
 import { 
   Sparkles, 
   Globe, 

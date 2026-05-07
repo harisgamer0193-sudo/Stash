@@ -1,7 +1,7 @@
-import { AuthProvider, useAuth } from "@/contexts/AuthContext.tsx";
-import { AuthPage, Onboarding } from "@/components/Auth.tsx";
-import { Dashboard } from "@/components/Dashboard.tsx";
-import { LoadingScreen } from "@/components/LoadingScreen.tsx";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { AuthPage, Onboarding } from "@/components/Auth";
+import { Dashboard } from "@/components/Dashboard";
+import { LoadingScreen } from "@/components/LoadingScreen";
 import { Toaster } from "sonner";
 
 function AppContent() {
