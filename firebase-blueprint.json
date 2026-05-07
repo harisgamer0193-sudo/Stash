@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "onboardingComplete": { "type": "boolean" },
+        "preferences": {
+          "type": "object",
+          "properties": {
+            "topSaves": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Save": {
+      "title": "Save",
+      "description": "A saved item (link, text, image, etc.)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["website", "prompt", "screenshot", "note", "video", "tweet"] },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "extractedText": { "type": "string" },
+        "aiSummary": { "type": "string" },
+        "sourceUrl": { "type": "string" },
+        "thumbnailUrl": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "category": { "type": "string" },
+        "isFavorite": { "type": "boolean" },
+        "isPinned": { "type": "boolean" },
+        "isArchived": { "type": "boolean" },
+        "isDeleted": { "type": "boolean" },
+        "embedding": { "type": "array", "items": { "type": "number" } },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "title", "content"]
+    },
+    "Collection": {
+      "title": "Collection",
+      "description": "A user-defined collection of saves",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "icon": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/saves/{saveId}": {
+      "schema": "Save",
+      "description": "Universal saves"
+    },
+    "/collections/{collectionId}": {
+      "schema": "Collection",
+      "description": "User collections"
+    }
+  }
+}

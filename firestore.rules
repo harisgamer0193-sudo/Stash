@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 0. Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Connectivity Test (Required by Guidelines)
+    match /test/connection {
+      allow read: if true;
+    }
+
+    // Phase 3: Primitives
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    // Validation Blueprints
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'email'])
+        && data.uid == request.auth.uid
+        && data.email is string && data.email.size() <= 256
+        && (data.displayName == null || (data.displayName is string && data.displayName.size() <= 128))
+        && (data.photoURL == null || (data.photoURL is string && data.photoURL.size() <= 500));
+    }
+
+    function isValidSave(data) {
+      return data.keys().hasAll(['userId', 'type', 'title', 'content'])
+        && data.userId == request.auth.uid
+        && data.type in ['website', 'prompt', 'screenshot', 'note', 'video', 'tweet', 'image']
+        && data.title is string && data.title.size() <= 1000
+        && data.content is string && data.content.size() <= 1000000
+        && (data.tags == null || data.tags is list);
+    }
+
+    // 1. Users Collection
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUser(incoming());
+      allow update: if isOwner(userId) 
+        && isValidUser(incoming())
+        && (
+          incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'photoURL', 'onboardingComplete', 'preferences'])
+        );
+    }
+
+    // 2. Saves Collection
+    match /saves/{saveId} {
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+      
+      allow create: if isSignedIn() 
+        && isValidSave(incoming());
+
+      allow update: if isSignedIn() 
+        && isValidSave(incoming())
+        && existing().userId == request.auth.uid
+        && (
+          // Action: Quick Toggle (Favorite, Deleted, etc)
+          (incoming().diff(existing()).affectedKeys().hasOnly(['isFavorite', 'isPinned', 'isArchived', 'isDeleted', 'updatedAt'])) ||
+          // Action: Full Edit
+          (incoming().diff(existing()).affectedKeys().hasOnly(['title', 'content', 'aiSummary', 'tags', 'category', 'updatedAt', 'description']))
+        );
+
+      allow delete: if isSignedIn() && existing().userId == request.auth.uid;
+    }
+
+    // 3. Collections
+    match /collections/{collectionId} {
+      allow read: if isSignedIn() && existing().userId == request.auth.uid;
+      allow create: if isSignedIn() && incoming().userId == request.auth.uid;
+      allow update: if isSignedIn() && existing().userId == request.auth.uid && incoming().userId == request.auth.uid;
+      allow delete: if isSignedIn() && existing().userId == request.auth.uid;
+    }
+  }
+}

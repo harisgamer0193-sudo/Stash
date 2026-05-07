@@ -1,0 +1,6 @@
+{
+  "name": "Stash - AI Second Memory",
+  "description": "An AI-powered second-memory platform that helps users save, organize, understand, and rediscover anything they find online.",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"],
+  "majorCapabilities": []
+}
